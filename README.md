@@ -72,7 +72,7 @@ python3 data_processing.py
 
 ### Framework
 
-<img src="./figures/summary.png" style="zoom:25%;" width="80%" height="80%"/>
+<div align=center><img src="./figures/summary.png" style="zoom:25%;" width="80%" height="80%"/></div>
 
 ---
 
