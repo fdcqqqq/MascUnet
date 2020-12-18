@@ -80,7 +80,7 @@ python3 data_processing.py
 
 
 
-<img src="./figures/brats_data.png" style="zoom: 50%;"  width="50%" height="50%"/>
+<div align=center><img src="./figures/brats_data.png" style="zoom: 50%;"  width="50%" height="50%"/></div>
 
 
 
@@ -90,13 +90,13 @@ python3 data_processing.py
 
 ### Parallel Dilation Convolution Feature Extraction Module
 
-<img src="./figures/unet.png" style="zoom:80%;"  width="60%" height="60%"/>
+<div align=center><img src="./figures/unet.png" style="zoom:80%;"  width="60%" height="60%"/></div>
 
 ---
 
 ### Masc Attention Module
 
-<img src="./figures/attention.png" style="zoom: 25%;"  width="70%" height="70%"/>
+<div align=center><img src="./figures/attention.png" style="zoom: 25%;"  width="70%" height="70%"/></div>
 
 ---
 
@@ -108,7 +108,7 @@ python3 data_processing.py
 
 
 
-<img src="./figures/attention_compare.jpg" style="zoom: 33%;"  width="70%" height="70%"/>
+<div align=center><img src="./figures/attention_compare.jpg" style="zoom: 33%;"  width="70%" height="70%"/></div>
 
 ---
 
