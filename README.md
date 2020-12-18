@@ -72,7 +72,7 @@ python3 data_processing.py
 
 ### Framework
 
-<img src="./figures/summary.png" style="zoom: 25%;" />
+![](https://github.com/fdcqqqq/MascUnet/blob/main/figures/summary.png)
 
 ---
 
