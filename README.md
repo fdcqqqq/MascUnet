@@ -72,7 +72,7 @@ python3 data_processing.py
 
 ### Framework
 
-![](https://github.com/fdcqqqq/MascUnet/blob/main/figures/summary.png)
+<img src="./figures/summary.png" style="zoom:25%;" />
 
 ---
 
@@ -90,7 +90,7 @@ python3 data_processing.py
 
 ### Parallel Dilation Convolution Feature Extraction Module
 
-![](./figures/unet.png)
+<img src="./figures/unet.png" style="zoom:80%;" />
 
 ---
 
@@ -108,7 +108,7 @@ python3 data_processing.py
 
 
 
-<img src="./figures/attention_compare.jpg" style="zoom: 50%;" />
+<img src="./figures/attention_compare.jpg" style="zoom: 33%;" />
 
 ---
 
