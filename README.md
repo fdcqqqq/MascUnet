@@ -72,7 +72,7 @@ python3 data_processing.py
 
 ### Framework
 
-<img src="https://github.com/fdcqqqq/MascUnet/blob/main/figures/summary.png" style="zoom: 25%;" />
+<img src="./figures/summary.png" style="zoom: 25%;" />
 
 ---
 
@@ -80,7 +80,7 @@ python3 data_processing.py
 
 
 
-<img src="https://github.com/fdcqqqq/MascUnet/blob/main/figures/brats_data.png" style="zoom: 50%;" />
+<img src="./figures/brats_data.png" style="zoom: 50%;" />
 
 
 
@@ -90,25 +90,25 @@ python3 data_processing.py
 
 ### Parallel Dilation Convolution Feature Extraction Module
 
-![](https://github.com/fdcqqqq/MascUnet/blob/main/figures/unet.png)
+![](./figures/unet.png)
 
 ---
 
 ### Masc Attention Module
 
-<img src="https://github.com/fdcqqqq/MascUnet/blob/main/figures/attention.png" style="zoom: 25%;" />
+<img src="./figures/attention.png" style="zoom: 25%;" />
 
 ---
 
 ### Experiences
 
-![](https://github.com/fdcqqqq/MascUnet/blob/main/figures/compare.png)
+![](./figures/compare.png)
 
 ---
 
 
 
-<img src="https://github.com/fdcqqqq/MascUnet/blob/main/figures/4.jpg" style="zoom: 50%;" />
+<img src="./figures/attention_compare.jpg" style="zoom: 50%;" />
 
 ---
 
