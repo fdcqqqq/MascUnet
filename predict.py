@@ -177,7 +177,7 @@ if __name__ == "__main__":
     model_to_load = "./weight_save/**.hdf5"
     # paths for the testing data
     path_HGG = glob('./dataset/test_HGG/**')
-    path_LGG = glob('./dataset/test_test/**')
+    path_LGG = glob('./dataset/test_LGG/**')
 
     test_path = path_HGG + path_LGG
     np.random.seed(2022)
