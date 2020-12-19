@@ -12,7 +12,7 @@ from keras.callbacks import ModelCheckpoint
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from keras import backend as K
-from nets.attention import *
+from nets.attention_modules.attention import *
 
 K.set_image_dim_ordering("tf")
 K.tensorflow_backend._get_available_gpus()

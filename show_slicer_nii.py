@@ -12,13 +12,13 @@ def read_img(path):
 def show_img_LGG(ori_img):
     plt.imshow(ori_img[70])
 
-    plt.axis('off')  # 去掉坐标轴
+    plt.axis('off')
 
 
 def show_img_HGG(ori_img):
     plt.imshow(ori_img[105])
 
-    plt.axis('off')  # 去掉坐标轴
+    plt.axis('off')
 
 
 path1 = 'HGG_flair.nii.gz'
@@ -32,8 +32,8 @@ path8 = 'unet_attention_HGG.nii.gz'
 
 
 
-path9 = 'LGG_flair.nii.gz'  # 数据所在路径
-path10 = 'LGG_seg.nii.gz'  # 数据所在路径
+path9 = 'LGG_flair.nii.gz'
+path10 = 'LGG_seg.nii.gz'
 path11 = 'attention_unet_LGG.nii.gz'
 path12 = 'CBAM_unet_LGG.nii.gz'
 path13 = 'CBAM_resunet_LGG.nii.gz'
@@ -122,14 +122,8 @@ show_img_LGG(data15)
 ax16 = plt.subplot(2, 8, 16)
 # ax6.set_title('Prediction', size=18)
 show_img_LGG(data16)
-plt.tight_layout()  # 调整整体空白
+plt.tight_layout()
 
-# plt.subplots_adjust(wspace =0.01, hspace =0.01)#调整子图间距
+# plt.subplots_adjust(wspace =0.01, hspace =0.01)
 plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.01, hspace=-0.49)
-# 参数说明：
-# top、bottom、left、right：整个图距离上下左右边框的距离
-# wspace、hspace：这个才是调整各个子图之间的间距
-# wspace：调整子图之间的横向间距
-# hspace：调整子图之间纵向间距
-
 plt.show()

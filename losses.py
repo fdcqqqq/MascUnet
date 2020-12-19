@@ -52,6 +52,7 @@ def dice_core_metric(y_true, y_pred):
     dice_core = dice(y_core, p_core)
     return dice_core
 
+
 def weighted_log_loss(y_true, y_pred):
     # scale predictions so that the class probas of each sample sum to 1
     y_pred /= K.sum(y_pred, axis=-1, keepdims=True)
@@ -63,6 +64,10 @@ def weighted_log_loss(y_true, y_pred):
     loss = y_true * K.log(y_pred) * weights
     loss = K.mean(-K.sum(loss, -1))
     return loss
+
+
+def lse(y_true, y_pred):
+    return tf.reduce_mean(tf.squared_difference(y_true - y_pred))
 
 
 def gen_dice_loss(y_true, y_pred):

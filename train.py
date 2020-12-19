@@ -10,22 +10,6 @@ from model import Unet_model
 from losses import *
 
 
-# from keras.utils.visualize_util import plot
-
-
-class SGDLearningRateTracker(Callback):
-    def on_epoch_begin(self, epoch, logs={}):
-        optimizer = self.model.optimizer
-        lr = K.get_value(optimizer.lr)
-        decay = K.get_value(optimizer.decay)
-        lr = lr / 10
-        decay = decay * 10
-        K.set_value(optimizer.lr, lr)
-        K.set_value(optimizer.decay, decay)
-        print('LR changed to:', lr)
-        print('Decay changed to:', decay)
-
-
 class Training(object):
 
     def __init__(self, batch_size, nb_epoch, load_model_resume_training=None):
@@ -53,9 +37,7 @@ class Training(object):
                                        #                                        save_best_only=True,
                                        period=1,
                                        verbose=1)
-        #         self.model.fit_generator(train_generator, steps_per_epoch=len(X33_train) // self.batch_size,
-        #                                  epochs=self.nb_epoch, validation_data=(X_patches_valid, Y_labels_valid), verbose=1,
-        #                                  callbacks=[checkpointer, SGDLearningRateTracker()])
+
         self.model.fit_generator(train_generator, steps_per_epoch=len(X33_train) // self.batch_size,
                                  epochs=self.nb_epoch, validation_data=(X_patches_valid, Y_labels_valid), verbose=2,
                                  callbacks=[checkpointer])
@@ -118,4 +100,3 @@ if __name__ == "__main__":
 
     # fit model
     brain_seg.fit_unet(X_patches, Y_labels, X_patches_valid, Y_labels_valid)  # *
-

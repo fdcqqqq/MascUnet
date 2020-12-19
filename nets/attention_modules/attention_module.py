@@ -19,9 +19,6 @@ import numpy as np
 
 import tensorflow as tf
 
-
-# 注意力机制
-
 def channel_attention(input_feature, ratio):
     channel_axis = 1 if K.image_data_format() == "channels_first" else -1
     channel = input_feature._keras_shape[channel_axis]
@@ -53,7 +50,7 @@ def channel_attention(input_feature, ratio):
     max_pool = shared_layer_two(max_pool)
     assert max_pool._keras_shape[1:] == (1, 1, channel)
 
-    cbam_feature = Add()([avg_pool, max_pool])  # 组合池化方式一
+    cbam_feature = Add()([avg_pool, max_pool])
     cbam_feature = Activation('softmax')(cbam_feature)
 
     if K.image_data_format() == "channels_first":
@@ -76,7 +73,7 @@ def spatial_attention(input_feature):
     assert avg_pool._keras_shape[-1] == 1
     max_pool = Lambda(lambda x: K.max(x, axis=3, keepdims=True))(cbam_feature)
     assert max_pool._keras_shape[-1] == 1
-    concat = Concatenate(axis=3)([avg_pool, max_pool])  # 组合池化方式二
+    concat = Concatenate(axis=3)([avg_pool, max_pool])
     assert concat._keras_shape[-1] == 2
     cbam_feature = Conv2D(filters=1,
                           kernel_size=kernel_size,
@@ -95,7 +92,7 @@ def spatial_attention(input_feature):
 
 def cbam_block(cbam_feature, ratio):
     """
-    channel & spatial 的串行结构
+    channel & spatial
     :param cbam_feature:
     :param ratio:
     :return:
@@ -106,7 +103,6 @@ def cbam_block(cbam_feature, ratio):
 
 
 def squeeze(inputs):
-    # 注意力机制单元
     input_channels = int(inputs.shape[-1])
 
     # x = GlobalAveragePooling2D()(inputs)
@@ -142,23 +138,16 @@ def attention_block_2d(x, g):
     return att_x
 
 
-def CSAR(input, reduction=8, increase=2):
+def Masc(input, reduction=8, increase=2):
     """
-    channel & spatial attention 的并行结构
+    channel & spatial attention
     :param input:
     :param reduction:
     :param increase:
     :return:
     """
     channel = int(input.shape[-1])  # (B, W, H, C)
-    #
-    # u = Conv2D(channel, 3, padding='same')(input)  # (B, W, H, C)
-    # u = Activation('relu')(u)
-    # u = Conv2D(channel, 3, padding='same')(u)  # (B, W, H, C)
 
-    # channel attention
-    # x = GlobalAveragePooling2D()(u)
-    # 全局平均池化
     x = Lambda(lambda x: K.mean(input, axis=(1, 2), keepdims=True))(input)  # (B, 1, 1, C)
     x = Conv2D(channel // reduction, 1)(x)  # (B, 1, 1, C // r)
     x = Activation('relu')(x)
@@ -166,28 +155,17 @@ def CSAR(input, reduction=8, increase=2):
     x = Activation(softmax)(x)
     x = multiply([input, x])  # (B, W, H, C)
 
-    # # spatial attention
-    # y = Conv2D(channel * increase, 1)(u)  # (B, W, H, C * i)
-    # y = Activation('relu')(y)
-    # y = Conv2D(1, 1)(y)  # (B, W, H, 1)
-    # y = Activation(softmax)(y)
-    # y = multiply([u, y])  # (B, W, H, C)
-    # spatial attention
-    # y = DepthwiseConv2D(channel, 1, padding='same')(input)  # (B, W, H, C * i)
+
     y = Conv2D(channel * increase, 1)(input)  # (B, W, H, C * i)
     y = Activation('relu')(y)
     y = Conv2D(1, 1)(y)  # (B, W, H, 1)
     y = Activation(softmax)(y)
     s1 = multiply([input, y])  # (B, W, H, C)
 
-    # z = concatenate([x, y], -1)
-    # z = Conv2D(channel, 1)(z)  # (B, W, H, C)
-    # s1 = Activation('relu')(z)
-    # z = add([input, z])
 
     avg_pool = Lambda(lambda x: K.mean(x, axis=3, keepdims=True))(x)
     max_pool = Lambda(lambda x: K.max(x, axis=3, keepdims=True))(x)
-    concat = Concatenate(axis=3)([avg_pool, max_pool])  # 组合池化方式二
+    concat = Concatenate(axis=3)([avg_pool, max_pool])
     cbam_feature = Conv2D(filters=1,
                           kernel_size=3,
                           activation='softmax',
@@ -205,7 +183,6 @@ def adap_maxpooling(x, outsize):
     # x_shape = K.int_shape(x)
     # batchsize1, dim1, dim2, channels1 = x_shape
     dim = int(x.shape[1])
-    # np.floor():返回不大于输入参数的最大整数。（向下取整）
     stride = np.floor(dim / outsize).astype(np.int32)
     kernels = dim - (outsize - 1) * stride
     adap_pooling = MaxPooling2D(pool_size=(kernels, kernels), strides=(stride, stride))(x)

@@ -174,13 +174,11 @@ class Prediction(object):
 
 if __name__ == "__main__":
     # set arguments
-    model_to_load = "./weight_save/fdcunet1.hdf5"
+    model_to_load = "./weight_save/**.hdf5"
     # paths for the testing data
-    # path_HGG = glob('./BRATS2018/HGG_test/**')
-    # path_LGG = glob('./BRATS2018/LGG_test/**')
+    path_HGG = glob('./BRATS2018/HGG_test/**')
+    path_LGG = glob('./BRATS2018/LGG_test/**')
 
-    path_HGG = glob('./BRATS2018/HGG_tes/**')
-    path_LGG = glob('./BRATS2018/LGG_tes/**')
     test_path = path_HGG + path_LGG
     np.random.seed(2022)
     np.random.shuffle(test_path)
@@ -191,4 +189,3 @@ if __name__ == "__main__":
 
     # predicts each volume and save the results in np array
     brain_seg_pred.predict_multiple_volumes(test_path[0:], save=True, show=True)  #
-    # brain_seg_pred.predict_multiple_volumes(test_path[200:290],save=False,show=True)

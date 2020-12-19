@@ -1,5 +1,3 @@
-import random
-# from skimage import io
 import numpy as np
 from glob import glob
 import SimpleITK as sitk
@@ -152,24 +150,8 @@ class Pipeline(object):
             return slice
         else:
             tmp = (slice - np.mean(image_nonzero)) / np.std(image_nonzero)
-            # since the range of intensities is between 0 and 5000 ,the min in the normalized slice corresponds to 0 intensity in unnormalized slice
-            # the min is replaced with -9 just to keep track of 0 intensities so that we can discard those intensities afterwards when sampling random patches
             tmp[tmp == tmp.min()] = -9
             return tmp
-
-
-'''
-def save_image_png (img,output_file="img.png"):
-    """
-    save 2d image to disk in a png format
-    """
-    img=np.array(img).astype(np.float32)
-    if np.max(img) != 0:
-        img /= np.max(img)   # set values < 1                  
-    if np.min(img) <= -1: # set values > -1
-        img /= abs(np.min(img))
-    io.imsave(output_file, img)
-'''
 
 
 def concatenate():
@@ -203,8 +185,8 @@ def concatenate():
 
 if __name__ == '__main__':
     # Paths for Brats2017 dataset
-    path_HGG = glob('./BRATS2018/HGG/**')
-    path_LGG = glob('./BRATS2018/LGG/**')
+    path_HGG = glob('./dataset/HGG/**')
+    path_LGG = glob('./dataset/LGG/**')
     path_all = path_HGG + path_LGG
 
     # shuffle the dataset
@@ -212,7 +194,7 @@ if __name__ == '__main__':
     np.random.shuffle(path_all)
 
     np.random.seed(1555)
-    start = 0  # 训练0-111验证:111-211
+    start = 0
     end = 111
     # set the total number of patches
     # this formula extracts approximately 3 patches per slice
@@ -228,7 +210,6 @@ if __name__ == '__main__':
     # transform the data to channels_last keras format
     Patches = np.transpose(Patches, (0, 2, 3, 1)).astype(np.float32)
 
-    # since the brats2017 dataset has only 4 labels,namely 0,1,2 and 4 as opposed to previous datasets
     # this transormation is done so that we will have 4 classes when we one-hot encode the targets
     Y_labels[Y_labels == 4] = 3
 
